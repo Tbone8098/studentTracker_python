@@ -13,19 +13,41 @@ class User(model_base.base_model):
     # Validator
     @staticmethod
     def validation(data):
-        errors = {}
+        is_valid = True
 
         if len(data['first_name']) < 1: 
-            errors['User_first_name'] = 'first_nameis required'
+            flash('first_name is required', 'err_user_first_name')
+            is_valid = False
+
+        if len(data['last_name']) < 1: 
+            flash('last_name is required', 'err_user_last_name')
+            is_valid = False
+
+        if len(data['email']) < 1: 
+            flash('email is required', 'err_user_email')
+            is_valid = False
+
+        if len(data['pw']) < 1: 
+            flash('password is required', 'err_user_pw')
+            is_valid = False
+
+        if len(data['confirm_pw']) < 1: 
+            flash('confirm_password is required', 'err_user_confirm_pw')
+            is_valid = False
         
-        return errors
-    
-    # API Validator
+        return is_valid
+        
+    # Validator
     @staticmethod
-    def validation(data):
-        errors = {}
+    def validation_login(data):
+        is_valid = True
 
-        if len(data['first_name']) < 1: 
-            errors['User_first_name'] = 'first_name is required'
+        if len(data['email']) < 1: 
+            flash('email is required', 'err_user_email')
+            is_valid = False
+
+        if len(data['pw']) < 1: 
+            flash('password is required', 'err_user_pw')
+            is_valid = False
         
-        return errors
+        return is_valid

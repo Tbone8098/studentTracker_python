@@ -2,15 +2,10 @@ from flask_app import app, bcrypt
 from flask import render_template, redirect, request, session, flash, jsonify
 from flask_app.models import model_user
 
-@app.route('/user/new')
+@app.route('/user/login', methods=['post'])
 def new_user():
-    pass 
-
-@app.route('/user/create', methods=['post'])
-def create_user():
-
-    if not model_user.User.validation(request.form):
-        return redirect('/')
+    if not model_user.User.validation_login(request.form):
+        return redirect('/') 
 
     data = {
         **request.form
@@ -18,7 +13,30 @@ def create_user():
 
     id = model_user.User.create(**data)
 
-    pass 
+    return redirect('/')
+
+@app.route('/user/register')
+def register():
+
+    return render_template('landing_page/register.html')
+
+@app.route('/user/create', methods=['post'])
+def create_user():
+
+    if not model_user.User.validation(request.form):
+        return redirect('/user/register')
+
+    hash_pw = bcrypt.generate_password_hash(request.form['pw'])
+
+    data = {
+        **request.form,
+        'pw': hash_pw
+    }
+
+    id = model_user.User.create(**data)
+    session['uuid'] = id
+
+    return redirect('/') 
 
 @app.route('/user/<int:id>')
 def show_user(id):
