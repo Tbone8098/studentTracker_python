@@ -1,13 +1,17 @@
 from flask_app.config.mysqlconnection import connectToMySQL
-from flask import flash
+from flask import flash, session
 from flask_app.models import model_base, model_user
-from flask_app import DATABASE_SCHEMA
+from flask_app import DATABASE_SCHEMA, bcrypt
 import re
 
 class User(model_base.base_model):
     table = 'Users'
     def __init__(self, data):
         super().__init__(data)
+        self.first_name = data['first_name']
+        self.last_name = data['last_name']
+        self.email = data['email']
+        self.pw = data['pw']
 
 
     # Validator
@@ -49,5 +53,17 @@ class User(model_base.base_model):
         if len(data['pw']) < 1: 
             flash('password is required', 'err_user_pw')
             is_valid = False
+
+        else:
+            potential_user = User.get_one(email=data['email'])
+            print(potential_user)
+            if not potential_user:
+                flash("Invalid Credentials", 'err_user_pw')
+                is_valid = False
+            elif not bcrypt.check_password_hash(potential_user.pw, data['pw']):
+                flash("Invalid Credentials", 'err_user_pw')
+                is_valid = False
+            else:
+                session['uuid'] = potential_user.id
         
         return is_valid

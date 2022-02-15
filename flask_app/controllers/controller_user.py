@@ -2,6 +2,11 @@ from flask_app import app, bcrypt
 from flask import render_template, redirect, request, session, flash, jsonify
 from flask_app.models import model_user
 
+@app.route('/logout')
+def logout():
+    del session['uuid']
+    return redirect('/')
+
 @app.route('/user/login', methods=['post'])
 def new_user():
     if not model_user.User.validation_login(request.form):
@@ -32,6 +37,10 @@ def create_user():
         **request.form,
         'pw': hash_pw
     }
+
+    del data['confirm_pw']
+
+    print(data)
 
     id = model_user.User.create(**data)
     session['uuid'] = id
