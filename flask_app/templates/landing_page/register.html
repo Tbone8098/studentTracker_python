@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="grid h-screen w-screen">
+            <div class="h-auto place-self-center">
+                <h1 class="text-3xl text-center">Student Tracker</h1>
+                <form action="/user/create" method="post">
+                    <div class="mt-3">
+                        <input class="text-center w-full" type="text" name="first_name" id="first_name" placeholder="First Name">
+                        {% for message in get_flashed_messages(category_filter=["err_user_first_name"]) %}
+                        <p class="alert alert-danger">{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                    <div class="mt-3">
+                        <input class="text-center w-full" type="text" name="last_name" id="last_name" placeholder="Last Name">
+                        {% for message in get_flashed_messages(category_filter=["err_user_last_name"]) %}
+                        <p class="alert alert-danger">{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                    <div class="mt-3">
+                        <input class="text-center w-full" type="text" name="email" id="email" placeholder="Email">
+                        {% for message in get_flashed_messages(category_filter=["err_user_email"]) %}
+                        <p class="alert alert-danger">{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                    <div class="mt-3">
+                        <input class="text-center w-full" type="text" name="pw" id="pw" placeholder="Password">
+                        {% for message in get_flashed_messages(category_filter=["err_user_pw"]) %}
+                        <p class="alert alert-danger">{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                    <div class="mt-3">
+                        <input class="text-center w-full" type="text" name="confirm_pw" id="confirm_pw" placeholder="Confirm Password">
+                        {% for message in get_flashed_messages(category_filter=["err_user_confirm_pw"]) %}
+                        <p class="alert alert-danger">{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                    <div class="flex justify-evenly mt-3">
+                        <a href="/" class="btn mr-3 bg-gray-400">Login</a>
+                        <button class="btn bg-green-500">Register</button>
+                    </div>
+                </form>
+            </div>
+    </div>
+{% endblock content %}

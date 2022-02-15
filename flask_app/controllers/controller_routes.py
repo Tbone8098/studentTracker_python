@@ -9,6 +9,13 @@ def index():
     session['page'] = 'landing_page'
     return render_template('landing_page/index.html')
 
+@app.route('/dashboard')
+def dashboard():
+    if 'uuid' not in session:
+        return redirect('/')
+    session['page'] = 'dashboard'
+    return render_template('main/dashboard.html')
+
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
