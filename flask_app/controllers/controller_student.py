@@ -1,6 +1,6 @@
 from flask_app import app, bcrypt
 from flask import render_template, redirect, request, session, flash, jsonify
-from flask_app.models import model_student
+from flask_app.models import model_student, model_user
 
 @app.route('/students/all')
 def all_students():
@@ -29,30 +29,35 @@ def create_student():
 
 @app.route('/student/<int:id>')
 def show_student(id):
-    pass 
-
-@app.route('/student/<int:id>/edit')
-def edit_student(id):
-    pass 
-
-@app.route('/student/<int:id>/update', methods=['post'])
-def update_student(id):
-
-    if not model_student.Student.validation(request.form):
-        return redirect('/')
-
-    data = {
-        **request.form
+    session['page'] = 'Student View'
+    context = {
+        'user': model_user.User.get_one(id=session['uuid']),
+        'student': model_student.Student.get_one(id=id)
     }
+    return render_template('/main/student_show.html', **context)
 
-    model_student.Student.update_one(id=id, **data)
+# @app.route('/student/<int:id>/edit')
+# def edit_student(id):
+#     pass 
 
-    pass 
+# @app.route('/student/<int:id>/update', methods=['post'])
+# def update_student(id):
 
-@app.route('/student/<int:id>/delete')
-def delete_student(id):
-    model_student.Student.delete_one(id=id)
-    pass 
+#     if not model_student.Student.validation(request.form):
+#         return redirect('/')
+
+#     data = {
+#         **request.form
+#     }
+
+#     model_student.Student.update_one(id=id, **data)
+
+#     pass 
+
+# @app.route('/student/<int:id>/delete')
+# def delete_student(id):
+#     model_student.Student.delete_one(id=id)
+#     pass 
 
 
 # ************************************************ API

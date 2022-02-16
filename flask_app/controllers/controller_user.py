@@ -40,39 +40,37 @@ def create_user():
 
     del data['confirm_pw']
 
-    print(data)
-
     id = model_user.User.create(**data)
     session['uuid'] = id
 
     return redirect('/') 
 
-@app.route('/user/<int:id>')
-def show_user(id):
-    pass 
+# @app.route('/user/<int:id>')
+# def show_user(id):
+#     pass 
 
-@app.route('/user/<int:id>/edit')
-def edit_user(id):
-    pass 
+# @app.route('/user/<int:id>/edit')
+# def edit_user(id):
+#     pass 
 
-@app.route('/user/<int:id>/update', methods=['post'])
-def update_user(id):
+# @app.route('/user/<int:id>/update', methods=['post'])
+# def update_user(id):
 
-    if not model_user.User.validation(request.form):
-        return redirect('/')
+#     if not model_user.User.validation(request.form):
+#         return redirect('/')
 
-    data = {
-        **request.form
-    }
+#     data = {
+#         **request.form
+#     }
 
-    model_user.User.update_one(id=id, **data)
+#     model_user.User.update_one(id=id, **data)
 
-    pass 
+#     pass 
 
-@app.route('/user/<int:id>/delete')
-def delete_user(id):
-    model_user.User.delete_one(id=id)
-    pass 
+# @app.route('/user/<int:id>/delete')
+# def delete_user(id):
+#     model_user.User.delete_one(id=id)
+#     pass 
 
 
 # ************************************************ API

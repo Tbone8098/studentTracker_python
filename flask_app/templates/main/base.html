@@ -4,10 +4,10 @@
     <div class="col-span-2 bg-blue-500">
         {% include 'utils/sidemenu.html' %}
     </div>
-    <div class="col-span-10 h-screen relative">
+    <div class="col-span-10 h-screen overflow-auto">
         <div class="col-span-10 m-3 flex justify-between">
             <h3 class="text-xl">{{session['page'].upper()}}</h3>
-            <a href="#" class="btn bg-blue-900 text-white">Fetch</a>
+            <a href="/get_sheety" class="btn bg-blue-900 text-white">Fetch</a>
         </div>
         <div class="grid grid-cols-12 h-100 relative">
             {% block main_content %}

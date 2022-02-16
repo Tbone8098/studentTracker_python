@@ -25,7 +25,6 @@ def create_cohort():
     id = model_cohort.Cohort.create(**data)
 
     students = get_sheety(request.form['sheetyInterface'])
-    print(students)
 
     bulk_create_students(students, id)
 
@@ -42,28 +41,28 @@ def show_cohort(id):
     }
     return render_template('/main/cohort_show.html', **context)
 
-@app.route('/cohort/<int:id>/edit')
-def edit_cohort(id):
-    pass 
+# @app.route('/cohort/<int:id>/edit')
+# def edit_cohort(id):
+#     pass 
 
-@app.route('/cohort/<int:id>/update', methods=['post'])
-def update_cohort(id):
+# @app.route('/cohort/<int:id>/update', methods=['post'])
+# def update_cohort(id):
 
-    if not model_cohort.Cohort.validation(request.form):
-        return redirect('/')
+#     if not model_cohort.Cohort.validation(request.form):
+#         return redirect('/')
 
-    data = {
-        **request.form
-    }
+#     data = {
+#         **request.form
+#     }
 
-    model_cohort.Cohort.update_one(id=id, **data)
+#     model_cohort.Cohort.update_one(id=id, **data)
 
-    pass 
+#     pass 
 
-@app.route('/cohort/<int:id>/delete')
-def delete_cohort(id):
-    model_cohort.Cohort.delete_one(id=id)
-    pass 
+# @app.route('/cohort/<int:id>/delete')
+# def delete_cohort(id):
+#     model_cohort.Cohort.delete_one(id=id)
+#     pass 
 
 
 # ************************************************ API

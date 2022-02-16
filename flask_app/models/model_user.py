@@ -18,7 +18,17 @@ class User(model_base.base_model):
         query = f"SELECT * FROM cohorts_has_users JOIN cohorts ON cohorts_has_users.cohort_id = cohorts.id WHERE cohorts_has_users.user_id = {self.id} ORDER BY cohort_id DESC LIMIT 1;"
         result = connectToMySQL(DATABASE_SCHEMA).query_db(query)
         if result:
-            return model_cohort.Cohort(result[0])
+            data = {
+                'id': result[0]['cohorts.id'],
+                'created_at': result[0]['cohorts.created_at'],
+                'updated_at': result[0]['cohorts.updated_at'],
+                'start_date': result[0]['start_date'],
+                'is_archived': result[0]['is_archived'],
+                'user_id': result[0]['user_id'],
+                'sheetyInterface': result[0]['sheetyInterface'],
+                
+            }
+            return model_cohort.Cohort(data)
         return []
 
 
@@ -64,7 +74,6 @@ class User(model_base.base_model):
 
         else:
             potential_user = User.get_one(email=data['email'])
-            print(potential_user)
             if not potential_user:
                 flash("Invalid Credentials", 'err_user_pw')
                 is_valid = False

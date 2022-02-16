@@ -2,12 +2,30 @@ import requests
 from flask_app.models import model_student, model_cohort_student
 
 def get_sheety(url):
+    data = {}
     url = "https://api.sheety.co/e634878b511e89c78955e868629c69eb/sheetyInterface/attendance"
     headers = {
         'Authorization': 'Bearer 9d45b27c-e5c7-4daa-bcf5-ab110808b5a7'
     }
     resp = requests.request('GET', url, headers=headers)
-    return resp.json()
+    attendance = resp.json()
+    data = {}
+    for item in attendance:
+        print(item)
+
+    # url = "https://api.sheety.co/e634878b511e89c78955e868629c69eb/sheetyInterface/progress"
+    # headers = {
+    #     'Authorization': 'Bearer 9d45b27c-e5c7-4daa-bcf5-ab110808b5a7'
+    # }
+    # resp = requests.request('GET', url, headers=headers)
+    # progress = resp.json()
+
+    # data[attendance]
+    # data[progress]
+    # print(data)
+    print(attendance)
+    return attendance
+
 
 
 def bulk_create_students(students, cohort_id):

@@ -1,0 +1,35 @@
+{% extends '/main/base.html' %}
+{% block main_content %}
+<div class="col-span-12 grid grid-cols-12 m-8 gap-8">
+    <div class="col-span-12 text-center flex flex-col gap-3">
+        <h2 class="text-5xl">{{ student.fullname }}</h2>
+        <div>
+            <form action="" method="post">
+                <input type="text" name="nickname" id="nickname" placeholder="Nickname">
+                <button class="px-3 bg-green-500">Update</button>
+            </form>
+        </div>
+        <p class="text-xl">ID: {{ student.student_id }}</p>
+    </div>
+    <div class="col-span-6 text-center">
+        <div>
+            <h3 class="text-xl font-bold">AP Status</h3>
+            <p class="{{ 'bg-red-500 text-white' if student.ap_status == 'On AP' else '' }}">{{ student.ap_status }}</p>
+        </div>
+        <div>
+            <h3 class="text-xl font-bold">AP Count</h3>
+            <p>{{ student.ap_count }}</p>
+        </div>
+    </div>
+    <div class="col-span-6">
+        <div>
+            <h3 class="text-xl font-bold">Core Assignments Completed</h3>
+            <p>something here</p>
+        </div>
+        <div>
+            <h3 class="text-xl font-bold">Sessions Missed</h3>
+            <p>{{ student.sessions_absent }}</p>
+        </div>
+    </div>
+</div>
+{% endblock main_content %}

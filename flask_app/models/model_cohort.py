@@ -15,14 +15,13 @@ class Cohort(model_base.base_model):
 
     @property
     def students(self):
+        # TODO make this a join statement in order to reduce database calls
         query = f"SELECT * FROM cohorts_has_students WHERE cohort_id={self.id};"
         results = connectToMySQL(DATABASE_SCHEMA).query_db(query)
         if results:
-            # print(results)
             list_of_students = []
             for record in results:
                 student = model_student.Student.get_one(id=record['student_id'])
-                print(student)
                 list_of_students.append(student)
             return list_of_students
         return []
@@ -31,7 +30,6 @@ class Cohort(model_base.base_model):
     @staticmethod
     def validation(data):
         is_valid = True
-        print(data)
 
         if len(data['start_date']) < 1: 
             flash('start_date is required', 'err_cohort_start_date')

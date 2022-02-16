@@ -2,6 +2,7 @@ from email import header
 from flask_app import app
 from flask import render_template, redirect, request, session, flash, jsonify
 from flask_app.models import model_user
+from flask_app.config.helper_func.sheety import get_sheety 
 
 @app.route('/')
 def index():
@@ -21,6 +22,12 @@ def dashboard():
     }
 
     return render_template('main/dashboard.html', **context)
+
+@app.route("/get_sheety")
+def sheety():
+    get_sheety(url='')
+    return redirect('/')
+
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')

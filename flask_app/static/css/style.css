@@ -9,6 +9,7 @@ button, .btn {
 
 input {
     border: 0.15em solid black;
+    text-align: center;
     border-radius: 0.75em;
 }
 
