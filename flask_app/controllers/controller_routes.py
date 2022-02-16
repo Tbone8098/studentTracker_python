@@ -1,3 +1,4 @@
+from email import header
 from flask_app import app
 from flask import render_template, redirect, request, session, flash, jsonify
 from flask_app.models import model_user
@@ -13,9 +14,9 @@ def index():
 def dashboard():
     if 'uuid' not in session:
         return redirect('/')
-    session['page'] = 'dashboard'
-    return render_template('main/dashboard.html')
+    session['page'] = 'dashboard'    
 
+    return render_template('main/dashboard.html')
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
