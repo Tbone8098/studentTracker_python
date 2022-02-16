@@ -1,0 +1,14 @@
+{% extends '/main/base.html' %}
+{% block main_content %}
+<div class="grid col-span-12 h-100 place-content-center">
+        <form action="/cohort/create" method="post" class="">
+            <div class="mb-3 ">
+                <input class="text-center w-full" type="text" name="sheetyInterface" id="sheetyInterface" placeholder="Sheety api link">
+            </div>
+            <div class="mb-3 ">
+                <input class="text-center w-full" type="date" name="start_date" id="start_date" placeholder="Start Date">
+            </div>
+            <button class="w-full bg-green-500">Create Class</button>
+        </form>
+</div>
+{% endblock main_content %}

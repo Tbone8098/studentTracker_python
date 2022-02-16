@@ -1,5 +1,41 @@
-{% extends 'base.html' %}
-{% block content %}
-    <h1>Dashboard</h1>
-    <a href="/logout">Logout</a>
-{% endblock content %}
+{% extends 'main/base.html' %}
+{% set students = user.current_cohort.students %}
+{% block main_content %}
+<div class="col-span-12">
+    <div class="grid grid-cols-12 gap-3 mx-3">
+        <div class="col-span-12 bg-red-500">
+            <table class="w-full text-center">
+                <thead>
+                    <tr>
+                        <th>Student</th>
+                        <th>ID</th>
+                        <th>AP Count</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in students %}
+                    {% if student.ap_status == 'On AP' %}
+                    <tr>
+                       <td> {{ student.fullname }}</td>
+                       <td> {{ student.student_id }}</td>
+                       <td> {{ student.ap_count }}</td>
+                       <td class="flex gap-3 justify-center">
+                           <a href="#" class="text-blue-900 underline">View</a>
+                           <a href="#" class="text-blue-900 underline">Make Note</a>
+                       </td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-span-6 bg-green-500">
+            go getters
+        </div>
+        <div class="col-span-6 bg-yellow-500">
+            students to watch
+        </div>
+    </div>
+</div>
+{% endblock main_content %}
