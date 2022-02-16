@@ -11,3 +11,14 @@ input {
     border: 0.15em solid black;
     border-radius: 0.75em;
 }
+
+
+/* table */
+
+table tr {
+    border-bottom: 1px solid black;
+}
+
+table td {
+    padding: 0.5em;
+}

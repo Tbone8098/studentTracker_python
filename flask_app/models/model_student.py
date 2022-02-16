@@ -19,6 +19,7 @@ class Student(model_base.base_model):
         self.sessions_late = data['sessions_late']
         self.sessions_excussed = data['sessions_excussed']
         self.sessions_absent = data['sessions_absent']
+        self.fullname = f"{self.first_name} {self.last_name}"
 
 
     # Validator
