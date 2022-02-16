@@ -22,6 +22,7 @@ def create_cohort():
     id = model_cohort.Cohort.create(**data)
 
     students = get_sheety(request.form['sheetyInterface'])
+    print(students)
 
     bulk_create_students(students, id)
 

@@ -5,7 +5,7 @@ from flask_app import DATABASE_SCHEMA
 import re
 
 class Student(model_base.base_model):
-    table = 'Students'
+    table = 'students'
     def __init__(self, data):
         super().__init__(data)
         self.first_name = data['first_name']

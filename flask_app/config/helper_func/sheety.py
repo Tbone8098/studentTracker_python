@@ -12,24 +12,25 @@ def get_sheety(url):
 
 def bulk_create_students(students, cohort_id):
     all_students = []
-    for student in students:
-        data = {
-            'first_name': student['firstName'],
-            'last_name': student['lastName'],
-            'email': student['email'],
-            'belt_score': student['beltScore'],
-            'student_id': student['studentId'],
-            'ap_status': student['apStatus'],
-            'ap_count': student['apCount'],
-            'sessions_present': student['p'],
-            'sessions_late': student['l'],
-            'sessions_excussed': student['e'],
-            'sessions_absent': student['a'],
-        }
-        all_students.append(model_student.Student.create(**data))
+    for student in students['attendance']:
+        if student['firstName']:
+            data = {
+                'first_name': student['firstName'],
+                'last_name': student['lastName'],
+                'email': student['email'],
+                'belt_score': 0,
+                'student_id': student['studentId'],
+                'ap_status': student['apStatus'],
+                'ap_count': {student['apCount'] if student['apCount'] != '' else 0},
+                'sessions_present': {student['presentCount'] if student['presentCount'] != '' else 0},
+                'sessions_late': {student['lateCount'] if student['lateCount'] != '' else 0},
+                'sessions_excussed': {student['excusedCount'] if student['excusedCount'] != '' else 0},
+                'sessions_absent': {student['absentCount'] if student['absentCount'] != '' else 0},
+            }
+            all_students.append(model_student.Student.create(**data))
 
-    for student in all_students:
-        model_cohort_student.CohortHasStudent.create(cohort_id=cohort_id, student_id=student.id)
+    for id in all_students:
+        model_cohort_student.CohortHasStudent.create(cohort_id=cohort_id, student_id=id)
     
     return True
 
