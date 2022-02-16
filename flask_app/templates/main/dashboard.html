@@ -3,8 +3,8 @@
 {% block main_content %}
 <div class="col-span-12">
     <div class="grid grid-cols-12 gap-3 mx-3">
-        <div class="col-span-12 bg-red-500">
-            <table class="w-full text-center">
+        <div class="col-span-12 bg-red-500 flex">
+            <table class="text-center m-3 w-full">
                 <thead>
                     <tr>
                         <th>Student</th>
@@ -16,7 +16,7 @@
                 <tbody>
                     {% for student in students %}
                     {% if student.ap_status == 'On AP' %}
-                    <tr>
+                    <tr class="bg-white border border-red-500 border-4">
                        <td> {{ student.fullname }}</td>
                        <td> {{ student.student_id }}</td>
                        <td> {{ student.ap_count }}</td>
