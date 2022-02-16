@@ -1,6 +1,6 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask import flash, session
-from flask_app.models import model_base, model_user
+from flask_app.models import model_base, model_cohort
 from flask_app import DATABASE_SCHEMA, bcrypt
 import re
 
@@ -12,6 +12,14 @@ class User(model_base.base_model):
         self.last_name = data['last_name']
         self.email = data['email']
         self.pw = data['pw']
+
+    @property
+    def current_cohort(self):
+        query = f"SELECT * FROM cohorts_has_users JOIN cohorts ON cohorts_has_users.cohort_id = cohorts.id WHERE cohorts_has_users.user_id = {self.id} ORDER BY cohort_id DESC LIMIT 1;"
+        result = connectToMySQL(DATABASE_SCHEMA).query_db(query)
+        if result:
+            return model_cohort.Cohort(result[0])
+        return []
 
 
     # Validator

@@ -16,7 +16,11 @@ def dashboard():
         return redirect('/')
     session['page'] = 'dashboard'    
 
-    return render_template('main/dashboard.html')
+    context = {
+        'user': model_user.User.get_one(id=session['uuid'])
+    }
+
+    return render_template('main/dashboard.html', **context)
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')

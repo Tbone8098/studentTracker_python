@@ -1,12 +1,15 @@
 from flask_app import app, bcrypt
 from flask import render_template, redirect, request, session, flash, jsonify
-from flask_app.models import model_cohort, model_student
+from flask_app.models import model_cohort, model_cohorts_has_users, model_user
 from flask_app.config.helper_func.sheety import get_sheety, bulk_create_students
 
 @app.route('/cohort/new')
 def new_cohort():
-    
-    return render_template('/main/cohort_new.html')
+    session['page'] = 'cohort_new'
+    context = {
+        'user': model_user.User.get_one(id=session['uuid'])
+    }
+    return render_template('/main/cohort_new.html', **context)
 
 @app.route('/cohort/create', methods=['post'])
 def create_cohort():
@@ -26,11 +29,18 @@ def create_cohort():
 
     bulk_create_students(students, id)
 
+    model_cohorts_has_users.CohortsHasUser.create(cohort_id=id, user_id=session['uuid'])
+
     return redirect('/')
 
 @app.route('/cohort/<int:id>')
 def show_cohort(id):
-    pass 
+    session['page'] = 'cohort_show'
+    context = {
+        'user': model_user.User.get_one(id=session['uuid']),
+        'cohort': model_cohort.Cohort.get_one(id=id)
+    }
+    return render_template('/main/cohort_show.html', **context)
 
 @app.route('/cohort/<int:id>/edit')
 def edit_cohort(id):
