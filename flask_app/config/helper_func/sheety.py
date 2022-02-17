@@ -2,16 +2,16 @@ import requests
 from flask_app.models import model_student, model_cohort_student
 
 def get_sheety(url):
-    data = {}
-    url = "https://api.sheety.co/e634878b511e89c78955e868629c69eb/sheetyInterface/attendance"
+    # data = {}
+    # url = "https://api.sheety.co/e634878b511e89c78955e868629c69eb/sheetyInterface/attendance"
     headers = {
         'Authorization': 'Bearer 9d45b27c-e5c7-4daa-bcf5-ab110808b5a7'
     }
     resp = requests.request('GET', url, headers=headers)
     attendance = resp.json()
-    data = {}
-    for item in attendance:
-        print(item)
+    # data = {}
+    # for item in attendance['attendance']:
+    #     data[item.studentId]
 
     # url = "https://api.sheety.co/e634878b511e89c78955e868629c69eb/sheetyInterface/progress"
     # headers = {
@@ -23,7 +23,6 @@ def get_sheety(url):
     # data[attendance]
     # data[progress]
     # print(data)
-    print(attendance)
     return attendance
 
 
@@ -44,6 +43,8 @@ def bulk_create_students(students, cohort_id):
                 'sessions_late': {student['lateCount'] if student['lateCount'] != '' else 0},
                 'sessions_excussed': {student['excusedCount'] if student['excusedCount'] != '' else 0},
                 'sessions_absent': {student['absentCount'] if student['absentCount'] != '' else 0},
+                'acp': student['acp'],
+                'attend_percentage': student['attend'],
             }
             all_students.append(model_student.Student.create(**data))
 

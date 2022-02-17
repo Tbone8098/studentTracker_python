@@ -31,5 +31,24 @@
             <p>{{ student.sessions_absent }}</p>
         </div>
     </div>
+    <div class="col-span-12">
+        <div class="flex justify-between">
+            <h2 class="text-xl">Notes</h2>
+            <a class="text-blue-900 underline" href="/note/new/{{student.id}}">Add a note</a>
+        </div>
+        {% for note in student.notes %}
+            <div class="bg-red-500 p-3 my-3">
+                <div class="bg-white">
+                    <div>
+                        <p>{{ note.content }}</p>
+                    </div>
+                    <div class="flex gap-3 justify-end pr-8">
+                        <a class="text-blue-900 underline" href="#">Edit</a>
+                        <a class="text-blue-900 underline" href="#">Delete</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 </div>
 {% endblock main_content %}

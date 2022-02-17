@@ -7,6 +7,7 @@
             <table class="text-center m-3 w-full">
                 <thead>
                     <tr>
+                        <th>Reason</th>
                         <th>Student</th>
                         <th>ID</th>
                         <th>AP Count</th>
@@ -15,14 +16,20 @@
                 </thead>
                 <tbody>
                     {% for student in students %}
-                    {% if student.ap_status == 'On AP' %}
+                    {% if student.ap_status == 'On AP' or student.acp < 0.6 %}
                     <tr class="bg-white border border-red-500 border-4">
+                        {% if student.ap_status == 'On AP' %}
+                        <td class="bg-red-300 text-white"> {{ student.ap_status}}</td>
+                            
+                        {% else %}
+                            <td>ACP: {{ student.acp * 100 }}%</td>
+                        {% endif %}
                        <td> {{ student.fullname }}</td>
                        <td> {{ student.student_id }}</td>
                        <td> {{ student.ap_count }}</td>
                        <td class="flex gap-3 justify-center">
                            <a href="/student/{{student.id}}" class="text-blue-900 underline">View</a>
-                           <a href="#" class="text-blue-900 underline">Make Note</a>
+                           <a href="/note/new/{{student.id}}" class="text-blue-900 underline">Make Note</a>
                        </td>
                     </tr>
                     {% endif %}
@@ -30,8 +37,15 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-span-6 bg-green-500">
-            go getters
+        <div class="col-span-3 bg-green-500 p-3">
+            <h2 class="text-xl text-center">Shout Out</h2>
+            <ul>
+                {% for student in students %}
+                {% if student.acp == 1 and student.attend_percentage == 1 %}
+                <li>{{student.fullname}}</li>
+                {% endif %}
+                {% endfor %}
+            </ul>
         </div>
         <div class="col-span-6 bg-yellow-500">
             students to watch

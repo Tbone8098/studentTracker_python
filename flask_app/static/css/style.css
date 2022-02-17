@@ -1,3 +1,5 @@
+/* utils */
+
 /* button */
 button, .btn {
     padding: 0.5em;
@@ -5,12 +7,26 @@ button, .btn {
     border-radius: 0.75em;
 }
 
+.inactive {
+    background-color: gray;
+    border: 0.15em solid rgb(119, 119, 119);
+    cursor: not-allowed;
+}
 /* form */
 
 input {
     border: 0.15em solid black;
     text-align: center;
     border-radius: 0.75em;
+}
+
+textarea {
+    width: 100%;
+    border: 0.1em solid black;
+}
+
+select {
+    border: 0.1em solid black;
 }
 
 
@@ -23,3 +39,5 @@ table tr {
 table td {
     padding: 0.5em;
 }
+
+

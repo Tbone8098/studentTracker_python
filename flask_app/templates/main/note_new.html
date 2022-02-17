@@ -1,0 +1,34 @@
+{% extends '/main/base.html' %}
+{% block main_content %}
+    <div class="col-span-12 m-8 bg-red-500">
+        <div class="border border-black p-8">
+            {% if student %}
+            <h2 class="text-lg">A Note {{ student.fullname }}</h2>
+            {% else %}
+            <h2 class="text-lg">A Note</h2>
+            {% endif %}
+            <form action="/note/create" method="post">
+                {% if student %}
+                    <input type="hidden" name="student_id" id="student_id" value="{{student.id}}">
+                {% endif %}
+                <textarea name="content" id="content" cols="30" rows="10"></textarea>
+                {% for message in get_flashed_messages(category_filter=["err_note_content"]) %}
+                <p class="alert alert-danger">{{ message }}</p>
+                {% endfor %}
+                {% if all_students %}
+                <select name="student_id" id="student_id">
+                    {% for student in all_students %}
+                        <option value="{{ student.id }}">{{ student.fullname }}</option>
+                    {% endfor %}
+                </select>
+                {% endif %}
+                {% for message in get_flashed_messages(category_filter=["err_note_student"]) %}
+                <p class="alert alert-danger">{{ message }}</p>
+                {% endfor %}
+                <div class="flex justify-end">
+                    <button class="bg-green-500 px-8">Create Note</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock main_content %}

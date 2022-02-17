@@ -25,7 +25,8 @@ def dashboard():
 
 @app.route("/get_sheety")
 def sheety():
-    get_sheety(url='')
+    info = get_sheety(url='https://api.sheety.co/e634878b511e89c78955e868629c69eb/sheetyInterface/attendance')
+    print(info)
     return redirect('/')
 
 
